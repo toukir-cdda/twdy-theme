@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    .bg-conic-gradient {
+        background-image: conic-gradient(var(--tw-gradient-stops));
+    }
+}
