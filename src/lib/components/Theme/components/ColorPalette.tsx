@@ -6,7 +6,6 @@ import {
   Key,
 } from "react";
 import { MdOutlineFormatColorFill } from "react-icons/md";
-import { useColorVariable } from "../../../hooks/useColorVariable";
 
 type ColorPaletteProps = {
   variable?: "primary" | "secondary";
@@ -15,13 +14,14 @@ type ColorPaletteProps = {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-const ColorPalette = ({
+const Palette = ({
   variable = "primary",
   size = "md",
   value,
   onChange,
 }: ColorPaletteProps) => {
   const colors = [
+    { shade: 25, variable: `--${variable}-25` },
     { shade: 50, variable: `--${variable}-50` },
     { shade: 100, variable: `--${variable}-100` },
     { shade: 200, variable: `--${variable}-200` },
@@ -32,6 +32,7 @@ const ColorPalette = ({
     { shade: 700, variable: `--${variable}-700` },
     { shade: 800, variable: `--${variable}-800` },
     { shade: 900, variable: `--${variable}-900` },
+    { shade: 950, variable: `--${variable}-950` },
   ];
 
   let boxSize = 200;
@@ -61,14 +62,14 @@ const ColorPalette = ({
     .map((color, index) => {
       const startAngle = index * segmentAngle;
       const endAngle = (index + 1) * segmentAngle;
-      return `var(${color.variable}) ${startAngle}deg ${endAngle}deg`;
+      return `rgba(var(${color.variable})) ${startAngle}deg ${endAngle}deg`;
     })
     .join(", ");
 
   const createLabels = () => {
     return colors.map((color, index) => {
       // Shift the index by 2 positions
-      const shiftedIndex = (index + 8) % colors.length;
+      const shiftedIndex = (index + 9.5) % colors.length;
       const angle = shiftedIndex * segmentAngle * (Math.PI / 180);
 
       const labelRadius = chartSize / 2 - (size === "sm" ? 13 : 20);
@@ -81,11 +82,17 @@ const ColorPalette = ({
       return (
         <div
           key={color.shade}
-          className={`absolute transform -translate-x-1/2 -translate-y-1/2 font-semibold ${size === "sm" ? "text-[8px]" : size === "md" ? "text-[10px]" : "text-xs"}`}
+          className={`absolute transform -translate-x-1/2 -translate-y-1/2 font-semibold ${
+            size === "sm"
+              ? "text-[8px]"
+              : size === "md"
+                ? "text-[10px]"
+                : "text-xs"
+          }`}
           style={{
             left: `${x}px`,
             top: `${y}px`,
-            color: `var(${labelColorVariable})`,
+            color: `rgba(var(${labelColorVariable}))`,
           }}
         >
           {color.shade}
@@ -119,12 +126,18 @@ const ColorPalette = ({
         return (
           <span
             key={index}
-            className={`absolute transfor ${size === "sm" ? "hidden" : size === "md" ? "text-[10px]" : "text-xs"}`}
+            className={`absolute transfor ${
+              size === "sm"
+                ? "hidden"
+                : size === "md"
+                  ? "text-[10px]"
+                  : "text-xs"
+            }`}
             style={{
               left: `0%`, // Center horizontally
               top: `50%`, // Center vertically
               transform: `translate(-50%, -50%) rotate(${angle}deg) translate(${radius}px) rotate(${-angle}deg)`,
-              color: `var(--${variable}-100)`,
+              color: `rgba(var(--${variable}-100))`,
             }}
           >
             {char}
@@ -157,7 +170,7 @@ const ColorPalette = ({
           height: `${chartSize / 2}px`,
           top: `${boxSize / 2 - chartSize / 4}px`,
           left: `${boxSize / 2 - chartSize / 4}px`,
-          background: `var(--${variable})`,
+          background: `rgba(var(--${variable}-500))`,
         }}
       >
         <input
@@ -182,4 +195,4 @@ const ColorPalette = ({
   );
 };
 
-export default ColorPalette;
+export default Palette;

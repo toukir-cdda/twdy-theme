@@ -2,8 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --spacing-0: 0;
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  /* ... more spacing variables */
+
+  --width-0: 0;
+  --width-1: 0.25rem;
+  --width-2: 0.5rem;
+  /* ... more width variables */
+
+  --height-0: 0;
+  --height-1: 0.25rem;
+  --height-2: 0.5rem;
+  /* ... more height variables */
+
+  --padding-0: 0;
+  --padding-1: 0.25rem;
+  --padding-2: 0.5rem;
+  /* ... more padding variables */
+
+  --margin-0: 0;
+  --margin-1: 0.25rem;
+  --margin-2: 0.5rem;
+  /* ... more margin variables */
+}
+
 @layer utilities {
-    .bg-conic-gradient {
-        background-image: conic-gradient(var(--tw-gradient-stops));
-    }
+  .bg-conic-gradient {
+    background-image: conic-gradient(var(--tw-gradient-stops));
+  }
 }
